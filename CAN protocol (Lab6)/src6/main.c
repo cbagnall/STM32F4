@@ -1,14 +1,3 @@
-/**
-  ******************************************************************************
-  * @file    MT3TB4 Lab1, Starter project /main.c
-  * @author  Asghar Bokhari and Robert Li
-  * @version 
-  * @date    Dec 2015
-  * @brief   1. for stm32f429 discovery board
-						
-	*/							
-  
- 
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h" 
@@ -55,25 +44,9 @@ void LCD_DisplayFloat(uint16_t LineNumber, uint16_t ColumnNumber, float Number, 
   * @retval None
   */
 int main(void)
-{
-  /*!< At this stage the microcontroller clock setting is already configured, 
-       this is done through SystemInit() function which is called from startup
-       file (startup_stm32f4xx.s) before to branch to application main.
-       To reconfigure the default setting of SystemInit() function, refer to
-       system_stm32f4xx.c file
-     */
+{		
 	
-
-
-/* 
-SysTick_Config() sets up and enable System tick  timer. 	
-SysTick_Config(Number_Of_Ticks_to_fire_an_interrupt)	
-To make the system tick timer have interrupt at every (SystemcoreClock/1000) ticks, 
-that means: 1000 times of interrupts will take 1s.
-SystemCoreClock=180000000Hz	
-*/		
-	
-	if (SysTick_Config(SystemCoreClock/1000)) //looks like a 1s delay to me ****CLAY****
+	if (SysTick_Config(SystemCoreClock/1000)) 
 		{
 				while(1);
 		}
@@ -135,7 +108,7 @@ void NVIC_Config(void)
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
 	
-	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn; // This is the interrupt handler ****CLAY****
+	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn; //handler
   NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0x00;
   NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0x00;
   NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
@@ -193,9 +166,9 @@ void CAN_Config(void)
   CAN_InitStructure.CAN_NART = ENABLE;
   CAN_InitStructure.CAN_RFLM = DISABLE;
   CAN_InitStructure.CAN_TXFP = DISABLE;
-	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;  //
+	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;  //CAN_Mode_SilentLoopBack
  
-  CAN_InitStructure.CAN_SJW = CAN_SJW_1tq; //synchronized jump width = 1 time quanta  ***CLAY****
+  CAN_InitStructure.CAN_SJW = CAN_SJW_1tq; //synchronized jump width = 1 time quanta 
     
   // CAN Baudrate = 500 Bps
 	// The bus the CAN is attached is of 45 Mhz. 
@@ -234,7 +207,7 @@ void CAN_Config(void)
   TxMessage.DLC = 1;
 	TxMessage.Data[0] =(GROUP_ID & 0x0FF); //group id
 	
-	CAN_ITConfig(CAN1,CAN_IT_FMP0, ENABLE); //enables message pending interrupt on CAN1 FIFO 0  ****CLAY****
+	CAN_ITConfig(CAN1,CAN_IT_FMP0, ENABLE); //enables message pending interrupt on CAN1 FIFO 0  
  
 }
 
@@ -343,13 +316,3 @@ void assert_failed(uint8_t* file, uint32_t line)
   {}
 }
 #endif
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
-
-/******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
